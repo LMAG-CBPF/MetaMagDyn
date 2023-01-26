@@ -1,0 +1,7 @@
+//Static field getter
+
+//DC_state = "[path]/DC_sweep.out/Eq_hi[hi].ovf"
+m.loadfile("{DC_state!s}")
+B_ext = vector{DC_dir}.mul({h_dc}*OeToT)
+
+SaveAs({field_name}, "StaticField.ovf")

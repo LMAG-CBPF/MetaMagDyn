@@ -1,0 +1,32 @@
+//Frequency Step
+
+// DC_state = [path]/DC_sweep.out/Eq_hi[hi].ovf
+m.loadfile("{DC_state!s}")
+
+h_rf := 0.5 * OeToT //RF field amplitude
+freq := {freq}
+
+B_DC := vector{DC_dir}.mul({h_dc}*OeToT)
+B_ext = vector{RF_dir}.mul(h_rf * (1 - exp(-t*freq)) * (2*exp(-(t*freq-1)*(t*freq-1) ) + 1) * sin(2*pi*freq*t)).add(B_DC)
+
+ci := 0
+
+p1 := 1.0/freq
+//20 periods oscillating with out doing anything
+for ci=0; ci<20; ci++ {{
+    Run(p1)
+}}
+
+//Save the initial stable oscillation 
+TableSave()
+SaveAs(m, "Osc_id.ovf" )
+
+ci = 0
+nc := 20
+p20 := 1.0/(freq*nc)
+//Oscillate for 1 period saving the table and M every 1/20 period.
+for ci=0; ci<nc; ci++{{
+    Run(p20)
+    SaveAs(m, Sprint("Osc_ci",ci,".ovf") )
+    TableSave()
+}}

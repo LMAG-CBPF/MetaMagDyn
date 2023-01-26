@@ -1,0 +1,23 @@
+
+//Disk r = 0.5um x 20nm
+
+Nx := 64
+Ny := 64
+Nz := 1
+radius := 0.5e-6
+sizeX := radius
+sizeY := radius
+sizeZ := 20.0e-9
+SetGridSize(Nx, Ny, Nz)
+SetCellSize(sizeX/Nx, sizeY/Ny, sizeZ/Nz)
+
+setgeom( circle(radius) )
+DefRegion(1, circle(radius))
+
+//Material properties
+alpha.SetRegion(1, 0.01)
+Msat.SetRegion(1, 800e3)
+Aex.SetRegion(1, 13e-12)
+
+//Initial magnetization
+m.SetRegion(1, Vortex(1,1))

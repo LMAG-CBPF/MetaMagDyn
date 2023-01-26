@@ -1,0 +1,4 @@
+//Fields in Oe
+OeToT := 1/10000
+TableAdd(B_ext)
+

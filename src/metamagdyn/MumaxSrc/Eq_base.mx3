@@ -1,0 +1,11 @@
+//Field step
+
+B_ext = vector{DC_dir}.mul({h}*OeToT)
+print("Relaxing H:",{h})
+Relax()
+Minimize()
+alpha.SetRegion(1, 1)
+Run(5E-9)
+TableSave()
+SaveAs(m, "Eq_hi{hi!s}.ovf")
+
